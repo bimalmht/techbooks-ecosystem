@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "techbooks-backend",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-07-01",
+  "compatibility_flags": [
+    "python_workers"
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "techbooks_crm_db",
+      "database_id": "79d78f55-8d98-438e-a03d-1ceac5597d82"
+    }
+  ]
+}	
