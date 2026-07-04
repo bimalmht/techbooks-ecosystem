@@ -1,0 +1,21 @@
+:root {
+  /* ==========================================================================
+     BRAND COLOR MANAGEMENT (Change these hex codes to completely re-theme)
+     ========================================================================== */
+  --color-primary-dark: #0f172a;    /* Base slate/navy for dark engine */
+  --color-primary-light: #ffffff;   /* Base white for light engine */
+  --color-bg-secondary: #f8fafc;    /* Soft off-white supporting color */
+  
+  --color-accent: #10b981;          /* Dynamic accent for buttons/CTAs */
+  --color-accent-hover: #059669;    /* Hover state for buttons */
+  
+  --text-dark: #1e293b;             /* Highly legible body text color */
+  --text-muted: #64748b;            /* Subdued body text color */
+}
+
+/* Base utility overrides */
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--text-dark);
+  background-color: var(--color-primary-light);
+}

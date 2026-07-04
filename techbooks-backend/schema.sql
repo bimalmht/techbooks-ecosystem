@@ -45,3 +45,13 @@ INSERT INTO services (engine_type, service_name, description, sort_order) VALUES
 ('local', 'Advertising Content Creation', 'Strategic multimedia assets and customized marketing materials built completely from scratch.', 2),
 ('local', 'Computer Hardware & Accessories', 'Reliable supply lines for essential enterprise hardware components and corporate technical scaling.', 3),
 ('local', 'Comprehensive Tech Support', 'On-demand remote and localized troubleshooting for data networking, computers, and peripheral arrays.', 4);
+
+-- 4. Table for Storing Contact / Quote Intake Leads
+CREATE TABLE IF NOT EXISTS customer_leads (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    client_name TEXT NOT NULL,
+    client_email TEXT NOT NULL,
+    engine_scope TEXT NOT NULL,
+    project_specs TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
