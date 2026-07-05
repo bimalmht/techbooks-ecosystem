@@ -7,6 +7,8 @@
     <title>Tech Books Solutions</title>
     <!-- Browser Tab Favicon Engine Mapping -->
     <link rel="icon" type="image/png" href="favicon.png">
+    <!-- FontAwesome Vector Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Tailwind CSS Production Engine -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="theme.css">
@@ -34,6 +36,35 @@
     <div id="announcement-bar" class="w-full bg-accent text-white text-center py-2 px-4 text-sm font-medium hidden">
         <!-- Loaded dynamically from D1 -->
     </div>
+
+    <!-- 1. FLOATING GLOBAL NAVIGATION HEADER -->
+    <nav
+        class="sticky top-0 z-50 w-full bg-slate-50/90 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <!-- Brand Identity / Logo -->
+            <a href="#" class="flex items-center space-x-2">
+                <img src="favicon.png" alt="Logo" class="w-8 h-8">
+                <span class="font-bold text-primaryDark tracking-tight">TechBooks Solutions</span>
+            </a>
+
+            <!-- Navigation Links -->
+
+            <!-- Navigation Links (Mapped to Distinct Component Identifiers) -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                <a href="#platform-engine" class="hover:text-accent transition-colors">Platform</a>
+                <a href="#solutions-engine" class="hover:text-accent transition-colors">Solutions</a>
+                <a href="#intake-portal" class="hover:text-accent transition-colors">Resources</a>
+            </div>
+
+            <!-- Call To Action Button -->
+            <div>
+                <a href="#intake-portal"
+                    class="bg-primaryDark hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2 rounded-md transition-all">
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </nav>
 
     <!-- 2. HERO ENGAGEMENT ZONE -->
     <header class="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -115,31 +146,58 @@
         </div>
     </header>
 
+    <!-- INFINITE BRAND MARQUEE SECTION -->
+    <!-- INFINITE BRAND MARQUEE SECTION -->
+    <section class="w-full bg-white py-12 overflow-hidden border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 mb-6 text-center">
+            <p class="text-xs font-mono uppercase tracking-widest text-slate-400">Helping partners scale trusted
+                enterprise systems</p>
+        </div>
+
+        <div class="relative w-full overflow-hidden flex">
+            <!-- Masking edge gradients for seamless blending -->
+            <div
+                class="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white to-transparent z-10">
+            </div>
+            <div
+                class="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-white to-transparent z-10">
+            </div>
+
+            <!-- 🛠️ DYNAMIC TARGET TRACK: Emptied out for dynamic client script execution -->
+            <div id="marquee-track" class="animate-marquee space-x-16 items-center pr-16">
+                <!-- Clients will load here dynamically via app.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. DYNAMIC TWIN ENGINES SPLITTER BLOCK -->
     <!-- 3. DYNAMIC TWIN ENGINES SPLITTER BLOCK -->
     <main id="services-splitter" class="w-full grid grid-cols-1 lg:grid-cols-2 min-h-[600px] border-t border-slate-100">
 
-        <!-- LEFT COLUMN: ENTERPRISE ENGINE (Dark Mode UI Layout) -->
-        <section class="bg-primaryDark text-white p-8 md:p-16 flex flex-col justify-between">
+        <!-- LEFT COLUMN: ENTERPRISE ENGINE (Added id="platform-engine") -->
+        <section id="platform-engine"
+            class="bg-white p-8 md:p-16 flex flex-col justify-between border-r border-slate-100 scroll-mt-20">
             <div>
                 <div
-                    class="inline-block bg-white/10 text-accent font-mono text-xs tracking-widest uppercase px-3 py-1 rounded-full mb-6">
+                    class="inline-block bg-accent/10 text-accent font-mono text-xs tracking-widest uppercase px-3 py-1 rounded-full mb-6">
                     Engine 01
                 </div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Enterprise Deployments</h2>
-                <p class="text-slate-400 max-w-md mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-primaryDark mb-4">Enterprise Deployments</h2>
+                <p class="text-slate-500 max-w-md mb-12">
                     High-tier enterprise framework mapping, specialized industrial workflows, and structural
                     distribution logistics.
                 </p>
 
                 <!-- Target container for database elements -->
-                <div id="enterprise-services-container" class="space-y-6">
-                    <p class="text-sm text-slate-500 animate-pulse">Querying production clusters...</p>
+                <div id="enterprise-services-container" class="space-y-6 text-slate-800">
+                    <p class="text-sm text-slate-400 animate-pulse">Querying production clusters...</p>
                 </div>
             </div>
         </section>
 
-        <!-- RIGHT COLUMN: LOCAL SERVICES ENGINE (Light Mode UI Layout) -->
-        <section class="bg-bgSecondary p-8 md:p-16 flex flex-col justify-between border-l border-slate-100">
+        <!-- RIGHT COLUMN: LOCAL SERVICES ENGINE (Added id="solutions-engine") -->
+        <section id="solutions-engine"
+            class="bg-bgSecondary p-8 md:p-16 flex flex-col justify-between border-l border-slate-100 scroll-mt-20">
             <div>
                 <div
                     class="inline-block bg-primaryDark/5 text-primaryDark font-mono text-xs tracking-widest uppercase px-3 py-1 rounded-full mb-6">
@@ -157,100 +215,187 @@
                 </div>
             </div>
         </section>
+    </main> <!-- 🛠️ FIXED: Closed main content splitter here so intake doesn't inherit grid positioning -->
 
-        <!-- 4. SECURE INTAKE PORTAL SECTION -->
-        <section id="intake-portal" class="w-full bg-white py-20 px-6 border-t border-slate-100">
-            <div class="max-w-3xl mx-auto">
+    <!-- 4. SECURE INTAKE PORTAL SECTION -->
+    <section id="intake-portal"
+        class="w-full bg-white py-20 px-6 border-t border-slate-100 flex flex-col items-center justify-center">
+        <div class="w-full max-w-3xl mx-auto">
 
-                <!-- Section Header -->
-                <div class="text-center mb-12">
-                    <span
-                        class="text-accent font-mono text-xs tracking-widest uppercase px-3 py-1 bg-accent/10 rounded-full mb-3 inline-block">
-                        Deployment Hub
-                    </span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-primaryDark tracking-tight mb-4">
-                        Initiate Your Architecture
-                    </h2>
-                    <p class="text-slate-500 max-w-lg mx-auto text-sm leading-relaxed">
-                        Request a technical blueprint analysis, enterprise framework scoping, or custom development
-                        architecture execution.
-                    </p>
+            <!-- Section Header -->
+            <div class="text-center mb-12 reveal-on-scroll">
+                <span
+                    class="text-accent font-mono text-xs tracking-widest uppercase px-3 py-1 bg-accent/10 rounded-full mb-3 inline-block">
+                    Deployment Hub
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold text-primaryDark tracking-tight mb-4">
+                    Initiate Your Architecture
+                </h2>
+                <p class="text-slate-500 max-w-lg mx-auto text-sm leading-relaxed">
+                    Request a technical blueprint analysis, enterprise framework scoping, or custom development
+                    architecture execution.
+                </p>
+            </div>
+
+            <!-- Interactive Form Layer -->
+            <form id="quote-form"
+                class="space-y-6 bg-bgSecondary border border-slate-200/60 p-8 md:p-10 rounded-2xl shadow-sm w-full">
+
+                <!-- Row 1: Corporate Credentials -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="client-name"
+                            class="block text-xs font-mono uppercase text-slate-500 tracking-wider mb-2">
+                            Full Name / Contact Person
+                        </label>
+                        <input type="text" id="client-name" required placeholder="e.g., Jane Doe"
+                            class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-accent transition-colors duration-200 text-sm">
+                    </div>
+                    <div>
+                        <label for="client-email"
+                            class="block text-xs font-mono uppercase text-slate-500 tracking-wider mb-2">
+                            Corporate Email Address
+                        </label>
+                        <input type="email" id="client-email" required placeholder="name@company.com"
+                            class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-accent transition-colors duration-200 text-sm">
+                    </div>
                 </div>
 
-                <!-- Interactive Form Layer -->
-                <form id="quote-form"
-                    class="space-y-6 bg-bgSecondary border border-slate-200/60 p-8 md:p-10 rounded-2xl shadow-sm">
-
-                    <!-- Row 1: Corporate Credentials -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="client-name"
-                                class="block text-xs font-mono uppercase text-slate-500 tracking-wider mb-2">Full Name /
-                                Contact Person</label>
-                            <input type="text" id="client-name" required placeholder="e.g., Jane Doe"
-                                class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-accent transition-colors duration-200 text-sm">
-                        </div>
-                        <div>
-                            <label for="client-email"
-                                class="block text-xs font-mono uppercase text-slate-500 tracking-wider mb-2">Corporate
-                                Email Address</label>
-                            <input type="email" id="client-email" required placeholder="name@company.com"
-                                class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-accent transition-colors duration-200 text-sm">
-                        </div>
-                    </div>
-
-                    <!-- Row 2: Architecture Scope Selection -->
-                    <div>
-                        <label for="engine-scope"
-                            class="block text-xs font-mono uppercase text-slate-500 tracking-wider mb-2">Target
-                            Operations Engine</label>
-                        <div class="relative">
-                            <select id="engine-scope" required
-                                class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-accent transition-colors duration-200 text-sm appearance-none cursor-pointer">
-                                <option value="" disabled selected>Select an operational pipeline...</option>
-                                <option value="enterprise">Engine 01: Enterprise Deployments (Wings ERP Scale)</option>
-                                <option value="local">Engine 02: Local Tech Solutions (Agile Apps & Design)</option>
-                                <option value="both">Hybrid Scope: Comprehensive Ecosystem Transformation</option>
-                            </select>
-                            <!-- Custom Dropdown Arrow -->
-                            <div
-                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20">
-                                    <path
-                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                </svg>
-                            </div>
+                <!-- Row 2: Architecture Scope Selection -->
+                <div>
+                    <label for="engine-scope"
+                        class="block text-xs font-mono uppercase text-slate-500 tracking-wider mb-2">
+                        Target Operations Engine
+                    </label>
+                    <div class="relative">
+                        <select id="engine-scope" required
+                            class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-accent transition-colors duration-200 text-sm appearance-none cursor-pointer">
+                            <option value="" disabled selected>Select an operational pipeline...</option>
+                            <option value="enterprise">Engine 01: Enterprise Deployments (Wings ERP Scale)</option>
+                            <option value="local">Engine 02: Local Tech Solutions (Agile Apps & Design)</option>
+                            <option value="both">Hybrid Scope: Comprehensive Ecosystem Transformation</option>
+                        </select>
+                        <!-- Custom Dropdown Arrow -->
+                        <div
+                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Row 3: Technical Specifications Message -->
-                    <div>
-                        <label for="project-specs"
-                            class="block text-xs font-mono uppercase text-slate-500 tracking-wider mb-2">Project Scope &
-                            Specifications</label>
-                        <textarea id="project-specs" rows="4" required
-                            placeholder="Outline your data structures, branch volumes, or visual content creation requirements..."
-                            class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-accent transition-colors duration-200 text-sm resize-none"></textarea>
+                <!-- Row 3: Technical Specifications Message -->
+                <div>
+                    <label for="project-specs"
+                        class="block text-xs font-mono uppercase text-slate-500 tracking-wider mb-2">
+                        Project Scope & Specifications
+                    </label>
+                    <textarea id="project-specs" rows="4" required
+                        placeholder="Outline your data structures, branch volumes, or visual content creation requirements..."
+                        class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-accent transition-colors duration-200 text-sm resize-none"></textarea>
+                </div>
+
+                <!-- Submit Action Block -->
+                <div>
+                    <button type="submit" id="form-submit-btn"
+                        class="w-full bg-primaryDark hover:bg-slate-800 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 shadow-lg flex items-center justify-center space-x-2 text-sm">
+                        <span>Transmit Architecture Specifications</span>
+                    </button>
+                </div>
+
+                <!-- System Message Traces -->
+                <div id="form-status-message" class="hidden text-center text-xs font-mono mt-4"></div>
+            </form>
+
+        </div>
+    </section>
+    <!-- 5. ENTERPRISE SYSTEM FOOTER INFRASTRUCTURE -->
+    <footer class="w-full bg-accent text-white pt-16 pb-8 px-6 mt-20 border-t border-accentHover">
+        <div class="max-w-7xl mx-auto">
+
+            <!-- Master Layout Grid Splitter -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+
+                <!-- COLUMN 1: CORPORATE ENGAGEMENT CONTACTS -->
+                <div class="flex flex-col space-y-4">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-white">Contact Us</h4>
+                    <ul class="space-y-3 text-sm text-white/90">
+                        <li><a href="#intake-portal" class="hover:text-primaryDark transition-colors duration-200">Book
+                                a Meeting</a></li>
+                        <li><a href="#intake-portal"
+                                class="hover:text-primaryDark transition-colors duration-200">Request a Demo</a></li>
+                        <li class="font-medium text-white tracking-tight pt-1">+9779855028514</li>
+                        <li class="font-medium text-white tracking-tight pt-1">+97798XXXXXXXX</li>
+                    </ul>
+                    <!-- Social Media Vector Channels -->
+                    <div class="flex items-center space-x-4 pt-3">
+                        <a href="#" target="_blank"
+                            class="text-white hover:text-primaryDark text-lg transition-colors duration-200"
+                            aria-label="X (formerly Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" target="_blank"
+                            class="text-white hover:text-primaryDark text-lg transition-colors duration-200"
+                            aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#" target="_blank"
+                            class="text-white hover:text-primaryDark text-lg transition-colors duration-200"
+                            aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
                     </div>
+                </div>
 
-                    <!-- Submit Action Block -->
-                    <div>
-                        <button type="submit" id="form-submit-btn"
-                            class="w-full bg-primaryDark hover:bg-slate-800 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 shadow-lg flex items-center justify-center space-x-2 text-sm">
-                            <span>Transmit Architecture Specifications</span>
-                        </button>
-                    </div>
+                <!-- COLUMN 2: SPACER PANEL TO PUSH LINKS RIGHT (Matches layout hierarchy in image_28b425.png) -->
+                <div class="hidden md:block"></div>
 
-                    <!-- System Message Traces -->
-                    <div id="form-status-message" class="hidden text-center text-xs font-mono mt-4"></div>
-                </form>
+                <!-- COLUMN 3: COMPANY ROUTING CORE -->
+                <div class="flex flex-col space-y-4">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-white">Company</h4>
+                    <ul class="space-y-3 text-sm text-white/90">
+                        <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">About Us</a></li>
+                        <!-- <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Leadership
+                                Team</a></li>
+                        <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Partnerships</a>
+                        </li> -->
+                        <!-- <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Newsroom</a></li>
+                        <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Careers</a></li>
+                        <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Compliance &
+                                Security</a></li>
+                        <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">We Respect
+                                Data</a></li> -->
+                    </ul>
+                </div>
+
+                <!-- COLUMN 4: TECHNICAL RESOURCES HUB -->
+                <div class="flex flex-col space-y-4">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-white">Resources</h4>
+                    <ul class="space-y-3 text-sm text-white/90">
+                        <!-- <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Blog</a></li> -->
+                        <!-- <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Developer</a></li> -->
+                        <!-- <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Wiki</a></li> -->
+                        <!--<li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Client Stories</a>
+                        </li>-->
+                        <!-- <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Events &
+                                Webinars</a></li> -->
+                        <!--<li><a href="#" class="hover:text-primaryDark transition-colors duration-200">All Resources</a>
+                        </li>-->
+                    </ul>
+                </div>
 
             </div>
-        </section>
 
-    </main>
+            <!-- BOTTOM RUNWAY: LEGAL & REVERSED COPYRIGHT LOGS -->
+            <div
+                class="pt-8 border-t border-white/20 flex flex-col md:flex-row items-center justify-between text-xs text-white/80 space-y-4 md:space-y-0">
+                <div>
+                    &copy; 2026-<span id="copyright-year">2026</span> TechBooks Solutions Private Limited | All Rights
+                    Reserved.
+                </div>
+                <div class="flex space-x-6">
+                    <!-- <a href="#" class="hover:text-primaryDark transition-colors duration-200">Privacy Policy</a> -->
+                    <!-- <a href="#" class="hover:text-primaryDark transition-colors duration-200">Terms of Service</a> -->
+                </div>
+            </div>
 
+        </div>
+    </footer>
     <script src="app.js"></script>
 </body>
 

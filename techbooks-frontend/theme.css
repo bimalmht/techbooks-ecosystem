@@ -2,7 +2,7 @@
   /* ==========================================================================
      BRAND COLOR MANAGEMENT (Change these hex codes to completely re-theme)
      ========================================================================== */
-  --color-primary-dark: #0f172a;    /* Base slate/navy for dark engine */
+  --color-primary-dark: #0a1412;    /* Base slate/navy for dark engine */
   --color-primary-light: #ffffff;   /* Base white for light engine */
   --color-bg-secondary: #f8fafc;    /* Soft off-white supporting color */
   
@@ -18,4 +18,37 @@ body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   color: var(--text-dark);
   background-color: var(--color-primary-light);
+}
+/* --- PREMIUM LOGO MARQUEE ENGINE --- */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+/* Pause marquee on hover for better user interactivity */
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* --- SCROLL REVEAL UTILITIES --- */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.reveal-on-scroll.active {
+  opacity: 1;
+  transform: translateY(0);
 }

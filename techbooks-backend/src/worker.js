@@ -33,7 +33,8 @@ export default {
         });
       }
     }
-    // Inside your fetch() block in the worker file, add this handler:
+
+    // 3. Your existing GET route for announcements
     if (url.pathname === "/api/announcements" && request.method === "GET") {
       try {
         const { results } = await env.DB.prepare(
@@ -43,19 +44,39 @@ export default {
         return new Response(JSON.stringify(results), {
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, HEAD, POST, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type",
+            ...corsHeaders
           }
         });
       } catch (err) {
         return new Response(JSON.stringify({ error: err.message }), {
           status: 500,
-          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+          headers: { "Content-Type": "application/json", ...corsHeaders }
         });
       }
     }
-    // Add this route handler block alongside your existing endpoints:
+
+    // 4. 🚀 NEW: GET route for infinite marquee partners pulling from D1
+    if (url.pathname === "/api/partners" && request.method === "GET") {
+      try {
+        const { results } = await env.DB.prepare(
+          "SELECT id, client_name, is_active FROM partners WHERE is_active = 1 ORDER BY created_at DESC"
+        ).all();
+
+        return new Response(JSON.stringify(results), {
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders
+          }
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: err.message }), {
+          status: 500,
+          headers: { "Content-Type": "application/json", ...corsHeaders }
+        });
+      }
+    }
+
+    // 5. Your existing POST route for customer leads
     if (url.pathname === "/api/leads" && request.method === "POST") {
       try {
         const body = await request.json();

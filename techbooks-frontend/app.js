@@ -53,16 +53,19 @@ async function fetchServices() {
     }
 }
 
+// 🛠️ CHANGED: Theme creation rules adapted for uniform Option B Light Mode layout mapping
 function createServiceCard(service, theme) {
     const card = document.createElement('div');
 
     if (theme === 'dark') {
-        card.className = 'p-6 bg-white/5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-200 shadow-sm mb-4';
+        // Formatted cleanly for Engine 01 (Left Column) to show beautifully on solid white background
+        card.className = 'p-6 bg-slate-50/60 rounded-xl border border-slate-200/60 hover:shadow-md transition-all duration-300 mb-4';
         card.innerHTML = `
-      <h3 class="text-xl font-semibold text-white mb-2">${service.service_name || 'Unnamed Deployment'}</h3>
-      <p class="text-slate-400 text-sm leading-relaxed">${service.description || 'No description provided.'}</p>
+      <h3 class="text-lg font-bold text-primaryDark mb-1">${service.service_name || 'Unnamed Deployment'}</h3>
+      <p class="text-slate-500 text-sm leading-relaxed">${service.description || 'No description provided.'}</p>
     `;
     } else {
+        // Engine 02 (Right Column) styling cards mapping
         card.className = 'p-6 bg-white rounded-xl border border-slate-200/60 hover:border-slate-300 transition-all duration-200 shadow-sm mb-4';
         card.innerHTML = `
       <h3 class="text-xl font-semibold text-slate-900 mb-2">${service.service_name || 'Unnamed Service'}</h3>
@@ -72,6 +75,7 @@ function createServiceCard(service, theme) {
 
     return card;
 }
+
 async function fetchAnnouncements() {
     const bar = document.getElementById('announcement-bar');
     if (!bar) return;
@@ -98,6 +102,7 @@ async function fetchAnnouncements() {
 document.addEventListener('DOMContentLoaded', () => {
     fetchAnnouncements();
 });
+
 // ==========================================================================
 // HERO MOCKUP TELEMETRY STREAM SIMULATION
 // ==========================================================================
@@ -136,6 +141,7 @@ function startTelemetryStream() {
 
 // Trigger telemetry simulation alongside core database loading pipelines
 document.addEventListener('DOMContentLoaded', startTelemetryStream);
+
 // ==========================================================================
 // CLIENT INTAKE HUB LOGIC
 // ==========================================================================
@@ -164,8 +170,6 @@ function initializeIntakePortal() {
         statusMsg.classList.add('text-slate-500');
         statusMsg.innerText = "[system] Compiling payload packets...";
 
-        // Simulated network processing delay (Will connect to a Worker endpoint later)
-        // REPLACE your temporary setTimeout code block with this robust live fetch loop:
         try {
             const response = await fetch(`${API_BASE_URL}/api/leads`, {
                 method: 'POST',
@@ -197,6 +201,88 @@ function initializeIntakePortal() {
         }
     });
 }
+
+// INTERSECTION OBSERVER FOR DYNAMIC SCROLL ANIMATIONS
+document.addEventListener("DOMContentLoaded", () => {
+    const scrollElements = document.querySelectorAll(".reveal-on-scroll");
+
+    const elementObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("active");
+                // Optional: unobserve if you only want the animation to play once
+                elementObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1, // Triggers when 10% of the element is visible
+        rootMargin: "0px 0px -40px 0px" // Slight offset for premium delayed entry feel
+    });
+
+    scrollElements.forEach((el) => {
+        elementObserver.observe(el);
+    });
+});
+// ==========================================================================
+// DYNAMIC MARQUEE RECONSTRUCTION ENGINE
+// ==========================================================================
+// ==========================================================================
+// DYNAMIC MARQUEE RECONSTRUCTION ENGINE (Live Cloudflare D1 Integration)
+// ==========================================================================
+// ==========================================================================
+// DYNAMIC MARQUEE RECONSTRUCTION ENGINE (Live Channel with Production Fallback)
+// ==========================================================================
+async function renderDynamicPartners() {
+    const track = document.getElementById('marquee-track');
+    if (!track) return;
+
+    // Our trusted production baseline clients list
+    const productionBaseline = [
+        // "Advance Power Research Pvt. Ltd."
+    ];
+
+    try {
+        // Query the active client nodes via your edge API endpoint gateway
+        const response = await fetch('https://api.techbookssolutions.com.np/api/partners');
+
+        // If the backend isn't ready or returns an error, trip the catch block execution
+        if (!response.ok) throw new Error(`Partners endpoint unreachable. Code: ${response.status}`);
+
+        const databaseRows = await response.json();
+
+        // Filter out records to strictly match active client nodes
+        let activeClients = databaseRows
+            .filter(item => item.is_active === 1 || item.is_active === true)
+            .map(item => item.client_name.trim());
+
+        // If the database returns completely empty, use our production baseline list
+        if (activeClients.length === 0) {
+            activeClients = productionBaseline;
+        }
+
+        // Build and loop the dataset
+        const continuousLoopList = [...activeClients, ...activeClients];
+        track.innerHTML = continuousLoopList.map(clientName => `
+            <span class="text-xl font-bold tracking-tight text-slate-300 grayscale hover:grayscale-0 transition-all duration-200 cursor-pointer uppercase">
+                ${clientName}
+            </span>
+        `).join('');
+
+    } catch (error) {
+        console.warn('Backend endpoint offline. Engaging client ledger fallback safety parameters:', error.message);
+
+        // 🚀 CRITICAL FIX: Fall back immediately to displaying your partners if the API network fails
+        const continuousLoopList = [...productionBaseline, ...productionBaseline];
+        track.innerHTML = continuousLoopList.map(clientName => `
+            <span class="text-xl font-bold tracking-tight text-slate-300 grayscale hover:grayscale-0 transition-all duration-200 cursor-pointer uppercase">
+                ${clientName}
+            </span>
+        `).join('');
+    }
+}
+
+// Ensure the partner runtime engine loads up concurrently with the DOM tree
+document.addEventListener('DOMContentLoaded', renderDynamicPartners);
 
 // Map initiation hook inside DOM load loop
 document.addEventListener('DOMContentLoaded', initializeIntakePortal);
