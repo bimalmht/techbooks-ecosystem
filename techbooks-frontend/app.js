@@ -11,7 +11,6 @@ async function fetchServices() {
     const enterpriseContainer = document.getElementById('enterprise-services-container');
     const localContainer = document.getElementById('local-services-container');
 
-    // Defensive fallback checks to make sure the containers exist
     if (!enterpriseContainer || !localContainer) {
         console.error("Critical Layout Error: One or more target service engine DOM containers are missing.");
         return;
@@ -22,9 +21,8 @@ async function fetchServices() {
         if (!response.ok) throw new Error(`Network returned code: ${response.status}`);
 
         const services = await response.json();
-        console.log("Successfully fetched database rows:", services); // Debug helper trace
+        console.log("Successfully fetched database rows:", services);
 
-        // Clear loading texts completely
         enterpriseContainer.innerHTML = '';
         localContainer.innerHTML = '';
 
@@ -34,11 +32,8 @@ async function fetchServices() {
             return;
         }
 
-        // Process and append elements dynamically
         services.forEach(item => {
-            // Normalize comparison to prevent case-sensitive mismatches
             const engineType = String(item.engine_type).toLowerCase().trim();
-
             if (engineType === 'enterprise') {
                 enterpriseContainer.appendChild(createServiceCard(item, 'dark'));
             } else if (engineType === 'local') {
@@ -53,26 +48,21 @@ async function fetchServices() {
     }
 }
 
-// 🛠️ CHANGED: Theme creation rules adapted for uniform Option B Light Mode layout mapping
 function createServiceCard(service, theme) {
     const card = document.createElement('div');
-
     if (theme === 'dark') {
-        // Formatted cleanly for Engine 01 (Left Column) to show beautifully on solid white background
         card.className = 'p-6 bg-slate-50/60 rounded-xl border border-slate-200/60 hover:shadow-md transition-all duration-300 mb-4';
         card.innerHTML = `
-      <h3 class="text-lg font-bold text-primaryDark mb-1">${service.service_name || 'Unnamed Deployment'}</h3>
-      <p class="text-slate-500 text-sm leading-relaxed">${service.description || 'No description provided.'}</p>
-    `;
+          <h3 class="text-lg font-bold text-primaryDark mb-1">${service.service_name || 'Unnamed Deployment'}</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">${service.description || 'No description provided.'}</p>
+        `;
     } else {
-        // Engine 02 (Right Column) styling cards mapping
         card.className = 'p-6 bg-white rounded-xl border border-slate-200/60 hover:border-slate-300 transition-all duration-200 shadow-sm mb-4';
         card.innerHTML = `
-      <h3 class="text-xl font-semibold text-slate-900 mb-2">${service.service_name || 'Unnamed Service'}</h3>
-      <p class="text-slate-600 text-sm leading-relaxed">${service.description || 'No description provided.'}</p>
-    `;
+          <h3 class="text-xl font-semibold text-slate-900 mb-2">${service.service_name || 'Unnamed Service'}</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">${service.description || 'No description provided.'}</p>
+        `;
     }
-
     return card;
 }
 
@@ -81,27 +71,22 @@ async function fetchAnnouncements() {
     if (!bar) return;
 
     try {
-        const response = await fetch('https://api.techbookssolutions.com.np/api/announcements');
-        if (!response.ok) return; // Fail silently if no active notices exist
+        const response = await fetch(`${API_BASE_URL}/api/announcements`);
+        if (!response.ok) return;
 
         const announcements = await response.json();
-
-        // Look for an active announcement record
         const activeNotice = announcements.find(a => a.is_active === 1 || a.is_active === true);
 
         if (activeNotice) {
             bar.innerHTML = `<span>📢 ${activeNotice.title}: ${activeNotice.content}</span>`;
-            bar.classList.remove('hidden'); // Reveal to the user smoothly
+            bar.classList.remove('hidden');
         }
     } catch (error) {
         console.log('Announcements pipeline offline or empty.');
     }
 }
 
-// Add inside your DOMContentLoaded listener loop:
-document.addEventListener('DOMContentLoaded', () => {
-    fetchAnnouncements();
-});
+document.addEventListener('DOMContentLoaded', fetchAnnouncements);
 
 // ==========================================================================
 // HERO MOCKUP TELEMETRY STREAM SIMULATION
@@ -121,25 +106,18 @@ function startTelemetryStream() {
     ];
 
     let logIndex = 0;
-
     setInterval(() => {
-        // Keep container cleanly capped at 5 lines to prevent scrolling overflows
         if (streamContainer.children.length >= 5) {
             streamContainer.removeChild(streamContainer.firstElementChild);
         }
-
         const logLine = document.createElement('div');
-        // Rotate through arrays using timestamp markers
         const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
         logLine.innerHTML = `<span class="text-slate-600 font-normal">[${timestamp}]</span> ${simulatedLogs[logIndex]}`;
-
         streamContainer.appendChild(logLine);
-
         logIndex = (logIndex + 1) % simulatedLogs.length;
-    }, 3500); // appends a new simulation line tracking every 3.5 seconds
+    }, 3500);
 }
 
-// Trigger telemetry simulation alongside core database loading pipelines
 document.addEventListener('DOMContentLoaded', startTelemetryStream);
 
 // ==========================================================================
@@ -153,15 +131,12 @@ function initializeIntakePortal() {
     if (!form || !submitBtn || !statusMsg) return;
 
     form.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Halt standard browser layout reload
-
-        // Extract inputs safely
+        e.preventDefault();
         const name = document.getElementById('client-name').value.trim();
         const email = document.getElementById('client-email').value.trim();
         const scope = document.getElementById('engine-scope').value;
         const specs = document.getElementById('project-specs').value.trim();
 
-        // Visual Transition: Processing State
         submitBtn.disabled = true;
         submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
         submitBtn.innerHTML = `<span>Processing Node Pipeline...</span>`;
@@ -173,17 +148,13 @@ function initializeIntakePortal() {
         try {
             const response = await fetch(`${API_BASE_URL}/api/leads`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, email, scope, specs })
             });
 
             const result = await response.json();
-
             if (!response.ok) throw new Error(result.error || 'Transmission failed.');
 
-            // Complete Success Response Transition
             statusMsg.classList.remove('text-slate-500');
             statusMsg.classList.add('text-emerald-500');
             statusMsg.innerHTML = `✓ Transmission Success. Project ticket generated for ${email}.`;
@@ -194,7 +165,6 @@ function initializeIntakePortal() {
             statusMsg.classList.add('text-red-500');
             statusMsg.innerText = `✕ Error: ${error.message}`;
         } finally {
-            // Always restore button UI elements to original operational state
             submitBtn.disabled = false;
             submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
             submitBtn.innerHTML = `<span>Transmit Architecture Specifications</span>`;
@@ -202,65 +172,53 @@ function initializeIntakePortal() {
     });
 }
 
+document.addEventListener('DOMContentLoaded', initializeIntakePortal);
+
 // INTERSECTION OBSERVER FOR DYNAMIC SCROLL ANIMATIONS
 document.addEventListener("DOMContentLoaded", () => {
     const scrollElements = document.querySelectorAll(".reveal-on-scroll");
-
     const elementObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("active");
-                // Optional: unobserve if you only want the animation to play once
                 elementObserver.unobserve(entry.target);
             }
         });
-    }, {
-        threshold: 0.1, // Triggers when 10% of the element is visible
-        rootMargin: "0px 0px -40px 0px" // Slight offset for premium delayed entry feel
-    });
+    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
 
-    scrollElements.forEach((el) => {
-        elementObserver.observe(el);
-    });
+    scrollElements.forEach((el) => elementObserver.observe(el));
 });
-// ==========================================================================
+
 // DYNAMIC MARQUEE RECONSTRUCTION ENGINE
-// ==========================================================================
-// ==========================================================================
-// DYNAMIC MARQUEE RECONSTRUCTION ENGINE (Live Cloudflare D1 Integration)
-// ==========================================================================
-// ==========================================================================
-// DYNAMIC MARQUEE RECONSTRUCTION ENGINE (Live Channel with Production Fallback)
 // ==========================================================================
 async function renderDynamicPartners() {
     const track = document.getElementById('marquee-track');
     if (!track) return;
 
-    // Our trusted production baseline clients list
+    // 🛠️ FIXED: Populated baseline elements with your default testing list
     const productionBaseline = [
-        // "Advance Power Research Pvt. Ltd."
+        "Advance Power Research Pvt. Ltd.",
+        "COCA-COLA",
+        "SAP LOGISTICS",
+        "CLOUDFLARE",
+        "TAEKWONDO NET",
+        "MICROSOFT",
+        "ORACLE"
     ];
 
     try {
-        // Query the active client nodes via your edge API endpoint gateway
-        const response = await fetch('https://api.techbookssolutions.com.np/api/partners');
-
-        // If the backend isn't ready or returns an error, trip the catch block execution
+        const response = await fetch(`${API_BASE_URL}/api/partners`);
         if (!response.ok) throw new Error(`Partners endpoint unreachable. Code: ${response.status}`);
 
         const databaseRows = await response.json();
-
-        // Filter out records to strictly match active client nodes
         let activeClients = databaseRows
             .filter(item => item.is_active === 1 || item.is_active === true)
             .map(item => item.client_name.trim());
 
-        // If the database returns completely empty, use our production baseline list
         if (activeClients.length === 0) {
             activeClients = productionBaseline;
         }
 
-        // Build and loop the dataset
         const continuousLoopList = [...activeClients, ...activeClients];
         track.innerHTML = continuousLoopList.map(clientName => `
             <span class="text-xl font-bold tracking-tight text-slate-300 grayscale hover:grayscale-0 transition-all duration-200 cursor-pointer uppercase">
@@ -270,8 +228,6 @@ async function renderDynamicPartners() {
 
     } catch (error) {
         console.warn('Backend endpoint offline. Engaging client ledger fallback safety parameters:', error.message);
-
-        // 🚀 CRITICAL FIX: Fall back immediately to displaying your partners if the API network fails
         const continuousLoopList = [...productionBaseline, ...productionBaseline];
         track.innerHTML = continuousLoopList.map(clientName => `
             <span class="text-xl font-bold tracking-tight text-slate-300 grayscale hover:grayscale-0 transition-all duration-200 cursor-pointer uppercase">
@@ -281,8 +237,106 @@ async function renderDynamicPartners() {
     }
 }
 
-// Ensure the partner runtime engine loads up concurrently with the DOM tree
 document.addEventListener('DOMContentLoaded', renderDynamicPartners);
 
-// Map initiation hook inside DOM load loop
-document.addEventListener('DOMContentLoaded', initializeIntakePortal);
+// ==========================================================================
+// HERO BACKGROUND SINE-WAVE RIBBON CONNECTOR ENGINE (GRID LINK INTEGRATION)
+// ==========================================================================
+function initHeroNetworkAnimation() {
+    const canvas = document.getElementById('hero-network-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        const parent = canvas.parentElement;
+        canvas.width = parent.offsetWidth || window.innerWidth;
+        canvas.height = parent.offsetHeight || 550;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Multi-stage latency window monitors to capture post-layout adjustments cleanly
+    setTimeout(resizeCanvas, 50);
+    setTimeout(resizeCanvas, 200);
+
+    // Visibility config parameters
+    const waveConfig = [
+        { length: 0.003, amplitude: 180, speed: 0.005, offset: 0, opacity: 0.35 },
+        { length: 0.005, amplitude: 110, speed: 0.008, offset: 100, opacity: 0.20 },
+        { length: 0.002, amplitude: 210, speed: 0.004, offset: 200, opacity: 0.15 }
+    ];
+
+    let increment = 0;
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Cache wave points as a structured array matrix
+        let pointMatrix = [];
+
+        waveConfig.forEach((wave, waveIdx) => {
+            ctx.beginPath();
+            let wavePoints = [];
+
+            // Sample coordinates smoothly across the layout width
+            for (let i = 0; i < canvas.width; i += 3) {
+                const y = (canvas.height / 2) +
+                    Math.sin(i * wave.length + increment * wave.speed + wave.offset) * wave.amplitude *
+                    Math.sin(increment * 0.001);
+
+                // Store both the X coordinate and Y value as an explicit point object
+                wavePoints.push({ x: i, y: y });
+
+                if (i === 0) {
+                    ctx.moveTo(i, y);
+                } else {
+                    ctx.lineTo(i, y);
+                }
+            }
+
+            pointMatrix[waveIdx] = wavePoints;
+
+            ctx.strokeStyle = `rgba(0, 180, 134, ${wave.opacity})`;
+            ctx.lineWidth = 3.5;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+        });
+
+        // 🔗 🛠️ FIXED: Bulletproof coordinate tracking for grid link connections
+        // We step through the stored points array directly, drawing a link line every 12 points (~36px apart)
+        if (pointMatrix.length >= 2 && pointMatrix[0].length > 0) {
+            const step = 12;
+            for (let k = 0; k < pointMatrix[0].length; k += step) {
+                const p0 = pointMatrix[0][k];
+                const p1 = pointMatrix[1][k];
+                const p2 = pointMatrix[2] ? pointMatrix[2][k] : null;
+
+                if (p0 && p1) {
+                    ctx.beginPath();
+                    ctx.moveTo(p0.x, p0.y);
+                    ctx.lineTo(p1.x, p1.y);
+                    // Made the links slightly brighter (0.18 opacity) so they are easily visible over the card elements
+                    ctx.strokeStyle = `rgba(0, 180, 134, 0.18)`;
+                    ctx.lineWidth = 1.0;
+                    ctx.stroke();
+                }
+
+                if (p1 && p2) {
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.strokeStyle = `rgba(0, 180, 134, 0.12)`;
+                    ctx.lineWidth = 1.0;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        increment += 1;
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+document.addEventListener('DOMContentLoaded', initHeroNetworkAnimation);

@@ -30,7 +30,7 @@
     </script>
 </head>
 
-<body class="m-0 p-0 overflow-x-hidden">
+<body class="m-0 p-0 overflow-x-hidden bg-slate-50 text-slate-900">
 
     <!-- 1. DYNAMIC ANNOUNCEMENT BAR -->
     <div id="announcement-bar" class="w-full bg-accent text-white text-center py-2 px-4 text-sm font-medium hidden">
@@ -39,15 +39,13 @@
 
     <!-- 1. FLOATING GLOBAL NAVIGATION HEADER -->
     <nav
-        class="sticky top-0 z-50 w-full bg-slate-50/90 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
+        class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <!-- Brand Identity / Logo -->
             <a href="#" class="flex items-center space-x-2">
                 <img src="favicon.png" alt="Logo" class="w-8 h-8">
                 <span class="font-bold text-primaryDark tracking-tight">TechBooks Solutions</span>
             </a>
-
-            <!-- Navigation Links -->
 
             <!-- Navigation Links (Mapped to Distinct Component Identifiers) -->
             <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
@@ -67,8 +65,16 @@
     </nav>
 
     <!-- 2. HERO ENGAGEMENT ZONE -->
-    <header class="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div>
+    <header
+        class="relative max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center overflow-hidden bg-transparent">
+
+        <!-- 🎨 WAVE CANVAS CONTAINER (Elevated to z-30 to pass over dashboard card borders) -->
+        <div class="absolute inset-0 pointer-events-none z-30 w-full h-full bg-transparent">
+            <canvas id="hero-network-canvas" class="w-full h-full block opacity-100"></canvas>
+        </div>
+
+        <!-- Left Content Area (Lifted to z-40 to stay interactive) -->
+        <div class="relative z-40 bg-transparent">
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-primaryDark mb-6">
                 Enterprise Scaling.<br><span class="text-accent">Local Engineering.</span>
             </h1>
@@ -81,72 +87,74 @@
                 Explore Our Engines
             </a>
         </div>
-        <!-- 2. HERO ENGAGEMENT ZONE (RIGHT SIDE DESIGNED UPGRADE) -->
+
+        <!-- 2. HERO ENGAGEMENT ZONE (RIGHT SIDE DESIGNED UPGRADE - HIGH-CONTRAST CARD PLATFORM) -->
         <div
-            class="hidden md:block bg-white rounded-2xl border border-slate-200/80 shadow-xl p-6 relative overflow-hidden group">
+            class="relative z-20 hidden md:block bg-white rounded-2xl border border-slate-200/80 shadow-xl p-6 overflow-hidden group">
             <!-- Decorative Background Grid Pattern -->
             <div
-                class="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30">
+                class="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30 pointer-events-none">
             </div>
 
             <!-- Terminal/Dashboard Header Controls -->
-            <div class="relative flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+            <div class="relative flex items-center justify-between border-b border-slate-100 pb-4 mb-6 bg-transparent">
                 <div class="flex items-center space-x-2">
                     <span class="w-3 h-3 rounded-full bg-red-400"></span>
                     <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
                     <span class="w-3 h-3 rounded-full bg-accent"></span>
-                    <span class="text-xs font-mono text-slate-400 ml-2 tracking-wider uppercase">System Engine
+                    <span class="text-xs font-mono text-slate-500 ml-2 tracking-wider uppercase">System Engine
                         Status</span>
                 </div>
                 <div
-                    class="flex items-center space-x-2 text-xs font-mono text-slate-400 bg-slate-50 px-2.5 py-1 rounded-md border border-slate-100">
+                    class="flex items-center space-x-2 text-xs font-mono text-slate-400 bg-slate-50 border border-slate-100 px-2.5 py-1 rounded-md shadow-xs">
                     <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
-                    <span class="text-slate-600 font-medium">Live Node Active</span>
+                    <span class="text-slate-700 font-semibold">Live Node Active</span>
                 </div>
             </div>
 
             <!-- Interactive Dashboard Cards Layout -->
-            <div class="relative grid grid-cols-2 gap-4 mb-6">
+            <div class="relative grid grid-cols-2 gap-4 mb-6 bg-transparent">
                 <!-- Metric 1: Enterprise Performance -->
                 <div
-                    class="bg-primaryDark text-white p-4 rounded-xl border border-white/10 shadow-sm transition-transform duration-300 group-hover:-translate-y-1">
-                    <div class="text-xs text-slate-400 font-mono mb-1 uppercase tracking-wider">Enterprise Matrix</div>
-                    <div class="text-2xl font-bold tracking-tight text-white mb-2">99.98%</div>
-                    <div class="w-full bg-white/10 h-1 rounded-full overflow-hidden">
+                    class="bg-white rounded-xl border border-slate-200/60 shadow-sm p-4 transition-transform duration-300 group-hover:-translate-y-1">
+                    <div class="text-xs text-slate-500 font-mono mb-1 uppercase tracking-wider">Enterprise Matrix</div>
+                    <div class="text-2xl font-black tracking-tight text-primaryDark mb-2">99.98%</div>
+                    <div class="w-full bg-slate-100 h-1 rounded-full overflow-hidden">
                         <div class="bg-accent h-full w-[94%] rounded-full"></div>
                     </div>
                 </div>
 
                 <!-- Metric 2: Local Node Response -->
                 <div
-                    class="bg-bgSecondary p-4 rounded-xl border border-slate-200/60 shadow-sm transition-transform duration-300 group-hover:-translate-y-1 delay-75">
+                    class="bg-white rounded-xl border border-slate-200/60 shadow-sm p-4 transition-transform duration-300 group-hover:-translate-y-1 delay-75">
                     <div class="text-xs text-slate-500 font-mono mb-1 uppercase tracking-wider">Response Cluster</div>
                     <div class="text-2xl font-bold tracking-tight text-primaryDark mb-2">14 ms</div>
-                    <div class="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
+                    <div class="w-full bg-slate-100 h-1 rounded-full overflow-hidden">
                         <div class="bg-accent h-full w-[88%] rounded-full"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Simulated Live Logger Terminal Console -->
+            <!-- 🛠️ FIXED CONSOLE: Deep Slate Midnight Palette upgrade for clean contrast readability -->
             <div
-                class="relative bg-slate-900 rounded-xl p-4 font-mono text-[11px] leading-relaxed text-slate-300 shadow-inner border border-slate-800">
+                class="relative bg-[#0f172a] rounded-xl p-4 font-mono text-[11px] leading-relaxed text-slate-200 shadow-2xl border border-slate-950">
                 <div
                     class="flex items-center justify-between text-slate-500 text-[10px] border-b border-slate-800 pb-2 mb-2">
-                    <span>API PROXY LOGS</span>
-                    <span>HTTPS / TLS 1.3</span>
+                    <span class="tracking-wider font-semibold text-slate-400">API PROXY LOGS</span>
+                    <span class="text-slate-500">HTTPS / TLS 1.3</span>
                 </div>
-                <div id="terminal-stream" class="space-y-1 text-emerald-400/90 h-28 overflow-hidden select-none">
-                    <div class="text-slate-500">[system] Initializing proxy listener loops...</div>
-                    <div class="text-slate-400">[info] Secure edge handshake verified successfully.</div>
-                    <div class="text-white">GET /api/services - <span class="text-accent font-semibold">200 OK</span>
-                        (Cluster Node 01)</div>
+                <div id="terminal-stream" class="space-y-1.5 h-28 overflow-hidden select-none">
+                    <div><span class="text-slate-500">[17:04:15]</span> <span class="text-emerald-400 font-semibold">GET
+                            /api/services - 200 OK</span></div>
+                    <div><span class="text-slate-500">[17:04:19]</span> <span class="text-slate-400">[info] D1 database
+                            pool connection synchronized.</span></div>
+                    <div><span class="text-slate-500">[17:04:22]</span> <span class="text-emerald-400 font-semibold">GET
+                            /api/announcements - 200 OK</span></div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- INFINITE BRAND MARQUEE SECTION -->
     <!-- INFINITE BRAND MARQUEE SECTION -->
     <section class="w-full bg-white py-12 overflow-hidden border-b border-slate-100">
         <div class="max-w-7xl mx-auto px-6 mb-6 text-center">
@@ -171,10 +179,9 @@
     </section>
 
     <!-- 3. DYNAMIC TWIN ENGINES SPLITTER BLOCK -->
-    <!-- 3. DYNAMIC TWIN ENGINES SPLITTER BLOCK -->
     <main id="services-splitter" class="w-full grid grid-cols-1 lg:grid-cols-2 min-h-[600px] border-t border-slate-100">
 
-        <!-- LEFT COLUMN: ENTERPRISE ENGINE (Added id="platform-engine") -->
+        <!-- LEFT COLUMN: ENTERPRISE ENGINE -->
         <section id="platform-engine"
             class="bg-white p-8 md:p-16 flex flex-col justify-between border-r border-slate-100 scroll-mt-20">
             <div>
@@ -195,9 +202,9 @@
             </div>
         </section>
 
-        <!-- RIGHT COLUMN: LOCAL SERVICES ENGINE (Added id="solutions-engine") -->
+        <!-- RIGHT COLUMN: LOCAL SERVICES ENGINE -->
         <section id="solutions-engine"
-            class="bg-bgSecondary p-8 md:p-16 flex flex-col justify-between border-l border-slate-100 scroll-mt-20">
+            class="bg-white p-8 md:p-16 flex flex-col justify-between border-l border-slate-100 scroll-mt-20">
             <div>
                 <div
                     class="inline-block bg-primaryDark/5 text-primaryDark font-mono text-xs tracking-widest uppercase px-3 py-1 rounded-full mb-6">
@@ -215,7 +222,7 @@
                 </div>
             </div>
         </section>
-    </main> <!-- 🛠️ FIXED: Closed main content splitter here so intake doesn't inherit grid positioning -->
+    </main>
 
     <!-- 4. SECURE INTAKE PORTAL SECTION -->
     <section id="intake-portal"
@@ -275,7 +282,6 @@
                             <option value="local">Engine 02: Local Tech Solutions (Agile Apps & Design)</option>
                             <option value="both">Hybrid Scope: Comprehensive Ecosystem Transformation</option>
                         </select>
-                        <!-- Custom Dropdown Arrow -->
                         <div
                             class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -310,6 +316,7 @@
 
         </div>
     </section>
+
     <!-- 5. ENTERPRISE SYSTEM FOOTER INFRASTRUCTURE -->
     <footer class="w-full bg-accent text-white pt-16 pb-8 px-6 mt-20 border-t border-accentHover">
         <div class="max-w-7xl mx-auto">
@@ -325,8 +332,7 @@
                                 a Meeting</a></li>
                         <li><a href="#intake-portal"
                                 class="hover:text-primaryDark transition-colors duration-200">Request a Demo</a></li>
-                        <li class="font-medium text-white tracking-tight pt-1">+9779855028514</li>
-                        <li class="font-medium text-white tracking-tight pt-1">+97798XXXXXXXX</li>
+                        <li class="font-medium text-white tracking-tight pt-1">+977 9855028514</li>
                     </ul>
                     <!-- Social Media Vector Channels -->
                     <div class="flex items-center space-x-4 pt-3">
@@ -342,7 +348,7 @@
                     </div>
                 </div>
 
-                <!-- COLUMN 2: SPACER PANEL TO PUSH LINKS RIGHT (Matches layout hierarchy in image_28b425.png) -->
+                <!-- COLUMN 2: SPACER PANEL -->
                 <div class="hidden md:block"></div>
 
                 <!-- COLUMN 3: COMPANY ROUTING CORE -->
@@ -350,16 +356,6 @@
                     <h4 class="font-bold text-sm uppercase tracking-wider text-white">Company</h4>
                     <ul class="space-y-3 text-sm text-white/90">
                         <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">About Us</a></li>
-                        <!-- <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Leadership
-                                Team</a></li>
-                        <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Partnerships</a>
-                        </li> -->
-                        <!-- <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Newsroom</a></li>
-                        <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Careers</a></li>
-                        <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Compliance &
-                                Security</a></li>
-                        <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">We Respect
-                                Data</a></li> -->
                     </ul>
                 </div>
 
@@ -367,15 +363,8 @@
                 <div class="flex flex-col space-y-4">
                     <h4 class="font-bold text-sm uppercase tracking-wider text-white">Resources</h4>
                     <ul class="space-y-3 text-sm text-white/90">
-                        <!-- <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Blog</a></li> -->
-                        <!-- <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Developer</a></li> -->
-                        <!-- <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Wiki</a></li> -->
-                        <!--<li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Client Stories</a>
-                        </li>-->
-                        <!-- <li><a href="#" class="hover:text-primaryDark transition-colors duration-200">Events &
-                                Webinars</a></li> -->
-                        <!--<li><a href="#" class="hover:text-primaryDark transition-colors duration-200">All Resources</a>
-                        </li>-->
+                        <li><a href="#services-splitter"
+                                class="hover:text-primaryDark transition-colors duration-200">Engines Pipeline</a></li>
                     </ul>
                 </div>
 
@@ -387,10 +376,6 @@
                 <div>
                     &copy; 2026-<span id="copyright-year">2026</span> TechBooks Solutions Private Limited | All Rights
                     Reserved.
-                </div>
-                <div class="flex space-x-6">
-                    <!-- <a href="#" class="hover:text-primaryDark transition-colors duration-200">Privacy Policy</a> -->
-                    <!-- <a href="#" class="hover:text-primaryDark transition-colors duration-200">Terms of Service</a> -->
                 </div>
             </div>
 
